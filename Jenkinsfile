@@ -17,7 +17,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t ${IMAGE_NAME} ."
+                    sh "sudo docker build -t ${IMAGE_NAME} ."
                 }
             }
         }
@@ -26,11 +26,11 @@ pipeline {
             steps {
                 script {
                     // Stop and remove any existing container
-                    sh "docker stop ${CONTAINER_NAME} || true"
-                    sh "docker rm ${CONTAINER_NAME} || true"
+                    sh "sudo docker stop ${CONTAINER_NAME} || true"
+                    sh "sudo docker rm ${CONTAINER_NAME} || true"
 
                     // Run new container
-                    sh "docker run -d --name ${CONTAINER_NAME} -p ${PORT_MAPPING} ${IMAGE_NAME}"
+                    sh "sudo docker run -d --name ${CONTAINER_NAME} -p ${PORT_MAPPING} ${IMAGE_NAME}"
                 }
             }
         }
