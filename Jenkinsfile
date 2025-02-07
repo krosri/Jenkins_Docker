@@ -2,15 +2,15 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "my-static-site"
-        CONTAINER_NAME = "my-static-container"
+        IMAGE_NAME = "jenkins-docker-app"
+        CONTAINER_NAME = "jenkins-docker-container"
         PORT_MAPPING = "9000:80"
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/krosri/Jenkins_Docker.git'  // Replace with your repo URL
+                git branch: 'main', url: 'https://github.com/krosri/Jenkins_Docker.git'
             }
         }
 
@@ -38,7 +38,7 @@ pipeline {
 
     post {
         success {
-            echo "Docker container running at http://localhost:9000"
+            echo "Docker container is running at http://localhost:9000"
         }
         failure {
             echo "Build or deployment failed!"
